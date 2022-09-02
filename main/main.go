@@ -12,7 +12,7 @@ import (
 func main() {
 	app := fiber.New()
 
-	//Rutas
+	//Routes
 	app.Get("/", rutas.GetHandler)
 
 	app.Post("/", rutas.PostHandler)
