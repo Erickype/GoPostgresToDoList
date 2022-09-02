@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/Erickype/GoPostgresToDoList/rutas"
 	"log"
 	"os"
 
@@ -10,6 +11,15 @@ import (
 
 func main() {
 	app := fiber.New()
+
+	//Routes
+	app.Get("/", rutas.GetHandler)
+
+	app.Post("/", rutas.PostHandler)
+
+	app.Put("/update", rutas.UpdateHandler)
+
+	app.Delete("/delete", rutas.DeleteHandler)
 
 	port := os.Getenv("PORT")
 
