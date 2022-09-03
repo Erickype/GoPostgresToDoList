@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/Erickype/GoPostgresToDoList/database"
 	"github.com/Erickype/GoPostgresToDoList/routes"
+	"github.com/gofiber/template/html"
 	"log"
 	"os"
 
@@ -11,7 +12,10 @@ import (
 )
 
 func main() {
-	app := fiber.New()
+	engine := html.New("./views", ".html")
+	app := fiber.New(fiber.Config{
+		Views: engine,
+	})
 
 	//Database
 	db := database.GetConnection()
