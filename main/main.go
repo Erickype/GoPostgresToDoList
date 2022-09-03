@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/Erickype/GoPostgresToDoList/database"
 	"github.com/Erickype/GoPostgresToDoList/routes"
 	"log"
 	"os"
@@ -12,14 +13,25 @@ import (
 func main() {
 	app := fiber.New()
 
+	//Database
+	db := database.GetConnection()
+
 	//Routes
-	app.Get("/", routes.GetHandler)
+	app.Get("/", func(ctx *fiber.Ctx) error {
+		return routes.GetHandler(ctx, db)
+	})
 
-	app.Post("/", routes.PostHandler)
+	app.Post("/", func(ctx *fiber.Ctx) error {
+		return routes.PostHandler(ctx, db)
+	})
 
-	app.Put("/update", routes.UpdateHandler)
+	app.Put("/update", func(ctx *fiber.Ctx) error {
+		return routes.UpdateHandler(ctx, db)
+	})
 
-	app.Delete("/delete", routes.DeleteHandler)
+	app.Delete("/delete", func(ctx *fiber.Ctx) error {
+		return routes.DeleteHandler(ctx, db)
+	})
 
 	port := os.Getenv("PORT")
 
