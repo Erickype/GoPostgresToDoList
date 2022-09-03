@@ -1,16 +1,18 @@
 package routes
 
-import "fmt"
+import (
+	"github.com/gofiber/fiber/v2"
+)
 
-func getHandler() {
-	fmt.Println("Get")
+func GetHandler(c *fiber.Ctx) error {
+	return c.SendString("Get")
 }
-func postHandler() {
-	fmt.Println("Post")
+func PostHandler(c *fiber.Ctx) error {
+	return c.SendString("Post")
 }
-func updateHandler() {
-	fmt.Println("Update")
+func UpdateHandler(c *fiber.Ctx) error {
+	return c.SendString("Update")
 }
-func deleteHandler() {
-	fmt.Println("Delete")
+func DeleteHandler(c *fiber.Ctx) error {
+	return c.SendString("Delete")
 }
