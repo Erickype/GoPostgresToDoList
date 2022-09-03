@@ -26,13 +26,6 @@ func GetConnection() *sql.DB {
 		panic(err)
 	}
 
-	defer func(db *sql.DB) {
-		err := db.Close()
-		if err != nil {
-			panic(err)
-		}
-	}(db)
-
 	err = db.Ping()
 	if err != nil {
 		panic(err)
