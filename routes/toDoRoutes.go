@@ -2,6 +2,7 @@ package routes
 
 import (
 	"database/sql"
+	"github.com/Erickype/GoPostgresToDoList/models"
 	"github.com/gofiber/fiber/v2"
 	"log"
 )
@@ -36,7 +37,16 @@ func GetHandler(c *fiber.Ctx, db *sql.DB) error {
 	return c.Render("index", fiber.Map{"Todos": todos})
 }
 func PostHandler(c *fiber.Ctx, db *sql.DB) error {
-	return c.SendString("Post")
+
+	newTodo := models.Todo{}
+
+	err := c.BodyParser(&newTodo)
+	if err != nil {
+		log.Printf("An error ocurred: %d", err)
+		return c.SendString(err.Error())
+	}
+
+	return c.Redirect("/")
 }
 func UpdateHandler(c *fiber.Ctx, db *sql.DB) error {
 	return c.SendString("Update")
