@@ -62,7 +62,17 @@ func PostHandler(c *fiber.Ctx, db *sql.DB) error {
 }
 
 func UpdateHandler(c *fiber.Ctx, db *sql.DB) error {
-	return c.SendString("Update")
+
+	oldItem := c.Query("oldItem")
+	newItem := c.Query("newItem")
+	q := `UPDATE todos SET item=$1 WHERE item=$2`
+
+	exec, err := db.Exec(q, newItem, oldItem)
+	if err != nil {
+		log.Fatalf("An error ocurred while executing query: %v\n%v", err, exec)
+	}
+
+	return c.SendString("Updated")
 }
 
 func DeleteHandler(c *fiber.Ctx, db *sql.DB) error {
