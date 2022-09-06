@@ -7,7 +7,9 @@ Accept: application/json
 POST http://localhost:3000
 Content-Type: application/json
 
-{}
+{
+  "Item" : "test"
+}
 
 ###
 PUT http://localhost:3000/update
