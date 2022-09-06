@@ -76,5 +76,14 @@ func UpdateHandler(c *fiber.Ctx, db *sql.DB) error {
 }
 
 func DeleteHandler(c *fiber.Ctx, db *sql.DB) error {
+
+	item := c.Query("item")
+	q := `DELETE FROM todos WHERE item = $1`
+
+	exec, err := db.Exec(q, item)
+	if err != nil {
+		log.Fatalf("An error ocurred while executing query: %v\n%v", err, exec)
+	}
+
 	return c.SendString("Delete")
 }
